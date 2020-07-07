@@ -1,0 +1,76 @@
+Options +FollowSymLinks
+# Activar RewriteEngine
+RewriteEngine on
+RewriteBase /
+#RewriteCond %{REQUEST_URI} !^/robots\.txt$
+#RewriteCond %{HTTP_HOST} !^www\.julycakes\.com$ [NC]
+#RewriteRule ^(.*)$ http://www.julycakes.com/$1 [R=301,L]
+
+DirectoryIndex index.php
+#ErrorDocument 404 http://www.julycakes.com/error404.php
+# Reescribir la URL solicitada por el usuario
+#   Entrada:  clientes/NOMBRE/
+#   Salida: clientes.php?id=NOMBRE
+RewriteRule ^product/(.+)/(.+)/?$ prodsG.php?cat=$1&item=$2
+RewriteRule ^product/(.+)/?$ prods.php?item=$1
+RewriteRule ^category/(.+)/?$ cats.php?cat=$1
+RewriteRule ^group/(.+)/?$ group.php?param=$1
+RewriteRule ^group/?$ group.php
+
+#Articles Category
+RewriteRule ^center/(.+)/?$ center.php?alias=$1
+#Articles Page
+RewriteRule ^special/(.+)/?$ page.php?alias=$1
+RewriteRule ^learning/(.+)/?$ page.php?alias=$1
+RewriteRule ^news/(.+)/?$ page.php?alias=$1
+RewriteRule ^event/(.+)/?$ page.php?alias=$1
+#
+#Transition Redirect
+RewriteRule ^special/(.+)/?$ blogPage.php?a_url=$1
+# NEW REDIRECT
+#VIEW PROD
+RewriteRule ^p//(.+)/?$ web/prod.php?item=$2
+RewriteRule ^p/(.+)/(.+)/?$ web/prod.php?item=$2
+#VIEW CAT
+RewriteRule ^c/(.+)/(.+)/(.+)/?$ web/cat.php?c_url=$1&b_url=$2&s=$3
+RewriteRule ^c/(.+)/(.+)/(.+)?$ web/cat.php?c_url=$1&b_url=$2&s=$3
+RewriteRule ^c/(.+)/(.+)?$ web/cat.php?c_url=$1&b_url=$2
+RewriteRule ^c/(.+)?$ web/cat.php?c_url=$1
+RewriteRule ^c/?$ web/cat.php
+#VIEW BRAND
+RewriteRule ^brand/(.+)/(.+)/?$ brand.php?b_url=$1&c_url=$2
+RewriteRule ^brand/(.+)/(.+)?$ brand.php?b_url=$1&c_url=$2
+RewriteRule ^brand/(.+)?$ brand.php?b_url=$1
+RewriteRule ^brand/?$ brand.php
+#VIEW LATEST
+RewriteRule ^LatestReleases/(.+)/(.+)/?$ LatestReleases.php?b_url=$1&s=$2
+RewriteRule ^LatestReleases/(.+)/(.+)?$ LatestReleases.php?b_url=$1&s=$2
+RewriteRule ^LatestReleases/(.+)?$ LatestReleases.php?b_url=$1
+RewriteRule ^LatestReleases/?$ LatestReleases.php
+#VIEW BLOG
+RewriteRule ^blog/(.+)/(.+)/?$ blog.php?c_url=$1&s=$2
+RewriteRule ^blog/(.+)/(.+)?$ blog.php?c_url=$1&s=$2
+RewriteRule ^blog/(.+)?$ blog.php?c_url=$1
+RewriteRule ^blog/?$ blog.php
+#VIEW PAGE
+RewriteRule ^a/(.+)/?$ blogPage.php?a_url=$1
+RewriteRule ^a/(.+)?$ blogPage.php?a_url=$1
+#SEARCH
+RewriteRule ^search/(.+)/(.+)/?$ search.php?ss=$1&s=$2
+RewriteRule ^search/(.+)/(.+)?$ search.php?ss=$1&s=$2
+#LANG
+RewriteRule ^lang/(.+)/?$ lang.php?lang=$1
+RewriteRule ^lang/(.+)?$ lang.php?lang=$1
+# OTHER
+RewriteRule ^contact/?$ contactus.php
+RewriteRule ^support/?$ support.php
+RewriteRule ^leasing/?$ leasing.php
+RewriteRule ^blog/?$ blog.php
+#VIEW CAT CLEAN
+RewriteRule ^lc/(.+)/?$ cat_clean.php?c_url=$1
+RewriteRule ^lc/(.+)?$ cat_clean.php?c_url=$1
+RewriteRule ^lc/?$ cat_clean.php
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
